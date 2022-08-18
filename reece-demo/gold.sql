@@ -1,8 +1,11 @@
 -- Databricks notebook source
-create catalog if not exists renji_demo;
-use catalog renji_demo;
-create database if not exists reece_demo;
-use database reece_demo
+-- set context
+%run ./Utils/Init
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC Create a table that aggregates data to give a view for monthly sales details for each branch
 
 -- COMMAND ----------
 

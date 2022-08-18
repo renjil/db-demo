@@ -1,8 +1,6 @@
 -- Databricks notebook source
-create catalog if not exists renji_demo;
-use catalog renji_demo;
-create database if not exists reece_demo;
-use database reece_demo
+-- set context
+%run ./Utils/Init
 
 -- COMMAND ----------
 
@@ -22,10 +20,6 @@ insert into branch_details_bronze values
 ('BR004', 'NSW Suburban branch', 'NSW'),
 ('BR005', 'QLD Downtown branch', 'QLD'),
 ('BR006', 'QLD Suburban branch', 'QLD');
-
--- COMMAND ----------
-
-select * from branch_details_bronze
 
 -- COMMAND ----------
 
@@ -64,6 +58,10 @@ insert into sales_details_bronze values
 (18, 150, 01, 04, 2021, 'BR002', 'PR001', 'Will Burt'),
 (19, 350, 01, 06, 2020, 'BR003', 'PR001', 'Bill Barr'),
 (20, 930, 01, 07, 2020, 'BR004', 'PR001', 'Tom Hanks');
+
+-- COMMAND ----------
+
+select * from branch_details_bronze
 
 -- COMMAND ----------
 
