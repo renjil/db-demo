@@ -1,17 +1,36 @@
 -- Databricks notebook source
-create catalog if not exists renji_demo
+create catalog if not exists renji_demo;
+use catalog renji_demo;
+create database if not exists reece_demo;
+use database reece_demo
 
 -- COMMAND ----------
 
-use catalog renji_demo
+create table if not exists sales_monthly_agg_gold
+as
+select 
+  id,
+  sum(amount) over (partition by month, year, branch_code) as monthly_sales,
+  month,
+  year,
+  branch_code
+from sales_details_silver
+order by id;
 
 -- COMMAND ----------
 
-create schema if not exists reece_demo
+select * from sales_monthly_agg_gold;
 
 -- COMMAND ----------
 
-use schema reece_demo
+
+
+-- COMMAND ----------
+
+-- move table to hive_metastore
+create table if not exists hive_metastore.renjidemo.sales_monthly_agg_gold
+as
+select * from renji_demo.reece_demo.sales_monthly_agg_gold;
 
 -- COMMAND ----------
 
@@ -28,51 +47,6 @@ create table sales_agg_gold
 -- COMMAND ----------
 
 describe extended sales_agg_gold
-
--- COMMAND ----------
-
-insert into sales_agg_gold values 
-(7, 1200, 01, 09, 2022, 'BR001'),
-(8,  200, 01, 10, 2022, 'BR001'),
-(9, 1100, 01, 11, 2022, 'BR002'),
-(10, 1000, 01, 12, 2022, 'BR002'),
-(1, 500, 01, 09, 2019, 'BR001'),
-(2, 700, 01, 08, 2019, 'BR002'),
-(5, 1000, 01, 03, 2021, 'BR001'),
-(6, 1100, 01, 04, 2021, 'BR002'),
-(3, 300, 01, 06, 2020, 'BR001'),
-(4, 800, 01, 07, 2020, 'BR002');
-
--- COMMAND ----------
-
-select * from sales_agg_gold ;
-
--- COMMAND ----------
-
-delete from sales_agg_gold;
-
--- COMMAND ----------
-
-ALTER TABLE sales_agg_gold SET TBLPROPERTIES (
-   'delta.columnMapping.mode' = 'name',
-   'delta.minReaderVersion' = '2',
-   'delta.minWriterVersion' = '5')
-
--- COMMAND ----------
-
-create schema hive_metatore.renjidemo
-
--- COMMAND ----------
-
-use catalog hive_metastore
-
--- COMMAND ----------
-
-create schema hive_metastore.renjidemo;
-
--- COMMAND ----------
-
-use schema renjidemo;
 
 -- COMMAND ----------
 
