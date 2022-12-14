@@ -41,4 +41,4 @@ jobs:
           pip install -U databricks-cli
           
       - name: Push to staging
-        run: ./git-cicd.sh
+        run: pwd
