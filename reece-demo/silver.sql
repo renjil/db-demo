@@ -4,6 +4,11 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md
+-- MAGIC ## Refine silver table with only required attributes
+
+-- COMMAND ----------
+
 create table if not exists sales_details_silver
 as
 select 
@@ -13,7 +18,9 @@ select
   month,
   year,
   branch_code
-from sales_details_bronze;
+from sales_details_bronze
+where amount is not null
+and branch_code is like 'BR%';
 
 -- COMMAND ----------
 

@@ -5,7 +5,7 @@
 -- COMMAND ----------
 
 -- MAGIC %md
--- MAGIC Create a table that aggregates data to give a view for monthly sales details for each branch
+-- MAGIC ## Create a table that aggregates data to give a view for monthly sales details for each branch
 
 -- COMMAND ----------
 
@@ -34,28 +34,6 @@ select * from sales_monthly_agg_gold;
 create table if not exists hive_metastore.renjidemo.sales_monthly_agg_gold
 as
 select * from renji_demo.reece_demo.sales_monthly_agg_gold;
-
--- COMMAND ----------
-
-create table sales_agg_gold
-(
-  id int,
-  branch_code int,
-  amount float,
-  day int,
-  month int,
-  year int
-)
-
--- COMMAND ----------
-
-describe extended sales_agg_gold
-
--- COMMAND ----------
-
-create table sales_agg_gold
-as
-select * from renji_demo.reece_demo.sales_agg_gold;
 
 -- COMMAND ----------
 

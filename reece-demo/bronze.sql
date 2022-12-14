@@ -1,6 +1,10 @@
 -- Databricks notebook source
--- set context
-%run ./Utils/Init
+-- MAGIC %md
+-- MAGIC <img src="https://drive.google.com/uc?export=download&id=1cZJCR5Z_9VDG05u0VfKplDjk7k5r6Y7I" width=1012/>
+
+-- COMMAND ----------
+
+-- MAGIC %run ./Utils/Init
 
 -- COMMAND ----------
 
@@ -61,8 +65,40 @@ insert into sales_details_bronze values
 
 -- COMMAND ----------
 
+insert into sales_details_bronze values 
+(22, 900, 01, 09, 2020, 'NA', 'NA', 'Tom Hanks');
+
+-- COMMAND ----------
+
 select * from branch_details_bronze
 
 -- COMMAND ----------
 
 select * from sales_details_bronze order by id;
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC ## Check for invalid records
+
+-- COMMAND ----------
+
+create or replace temp view sales_details_bronze_invalid_amount
+as
+select * from sales_details_bronze
+where amount is null;
+
+-- COMMAND ----------
+
+select * from sales_details_bronze_invalid_amount;
+
+-- COMMAND ----------
+
+create or replace temp view sales_details_bronze_invalid_branch_code
+as
+select * from sales_details_bronze
+where branch_code not like 'BR%';
+
+-- COMMAND ----------
+
+select * from sales_details_bronze_invalid_branch_code;
