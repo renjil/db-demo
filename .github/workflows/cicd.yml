@@ -13,6 +13,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env: 
+  databricks_host: ${{ secrets.DATABRICKS_HOST }}
+  databricks_user: ${{ secrets.DATABRICKS_USER }}
+  databricks_token: ${{ secrets.DATABRICKS_TOKEN }}
+  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -42,5 +47,9 @@ jobs:
           pip install pytest requests setuptools wheel
           pip install -U databricks-cli
           
-      - name: Push to staging
-        run: .github/workflows/git-cicd.sh
+      - name: check secrets
+        run: |
+          echo $databricks_host
+          
+      #- name: Push to staging
+      # run: .github/workflows/git-cicd.sh
