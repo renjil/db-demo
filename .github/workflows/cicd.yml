@@ -34,7 +34,7 @@ jobs:
           pip install -U databricks-cli
           
       - name: Push to staging
-        shell: bash
-        env: 
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-        run: .github/workflows/git-cicd.sh
+        run: |
+          .github/workflows/db-configure.sh
+          .github/workflows/git-cicd.sh
+          
