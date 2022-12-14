@@ -37,8 +37,10 @@ jobs:
           
       - name: Install libraries
         run: |
+          sudo apt-get update
+          sudo apt-get install jq
           pip install pytest requests setuptools wheel
           pip install -U databricks-cli
           
       - name: Push to staging
-        run: jq
+        run: .github/workflows/git-cicd.sh
