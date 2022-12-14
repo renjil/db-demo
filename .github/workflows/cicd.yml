@@ -28,6 +28,7 @@ jobs:
           
       # Runs a single command using the runners shell
       - name: Run a one-line script
+        shell: bash
         env: 
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         run: echo "Hello, world! $DATABRICKS_HOST"
