@@ -76,6 +76,10 @@ def write_data(data):
 
 # COMMAND ----------
 
+# MAGIC %md Note - Defining the above two functions can be moved into its own notebook and imported into the main notebook to keep it cleaner. Leaving it here for easy reading.
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## Step 2 - Ingest the data from API locally
 
@@ -138,6 +142,12 @@ display(df)
 
 df_explode = df.withColumn("data", explode(df.dataseries)).drop(df.dataseries)
 display(df_explode)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC Note - Below code from here on out is specific to the weather API, so would ideally sit outside of this notebook and in a separate pipeline intended for further processing of the specific data set.
+# MAGIC That would allow for the API Ingestion notebook to be generic
 
 # COMMAND ----------
 
