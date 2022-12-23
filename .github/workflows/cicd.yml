@@ -13,6 +13,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+ 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -24,24 +25,16 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
           
       - name: Install libraries
         run: |
+          sudo apt-get update
+          sudo apt-get install jq
           pip install pytest requests setuptools wheel
           pip install -U databricks-cli
           
       - name: Push to staging
         run: |
-          repo_id=$(databricks repos list --path-prefix /Repos/renji.harold@databricks.com/db-demo | jq '.repos | .[].id')
-          databricks repos update --repo-id $repo_id --branch staging
-          echo "successfully updated staging branch on databricks"
+          .github/workflows/db-configure.sh
+          .github/workflows/git-cicd.sh
+          

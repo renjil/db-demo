@@ -9,7 +9,7 @@
 
 -- COMMAND ----------
 
--- test
+-- test again and again
 create table if not exists sales_details_silver
 as
 select 
